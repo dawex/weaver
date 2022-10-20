@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>weaver-verifiable-credentials-model</artifactId>
+	<groupId>com.dawex.weaver</groupId>
+	<version>1-SNAPSHOT</version>
+
+	<properties>
+		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<assert4j.version>3.23.1</assert4j.version>
+		<json-path.version>2.7.0</json-path.version>
+		<junit.version>5.9.0</junit.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<mockito.version>3.12.4</mockito.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.dawex.weaver</groupId>
+			<artifactId>weaver-verifiable-credentials-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Tests -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assert4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${json-path.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<name>weaver-verifiable-credentials-model</name>
+	<url>https://github.com/dawex/weaver</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://github.com/dawex/weaver/blob/master/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Dawex</name>
+		<url>https://www.dawex.com</url>
+	</organization>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/dawex/weaver/issues</url>
+	</issueManagement>
+
+</project>
