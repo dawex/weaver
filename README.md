@@ -1,4 +1,8 @@
-# Gaia-X Library 
+# Weaver - Dawex repository for Data Exchange Open Source projects
+
+## Description
+
+### Verifiable credential core
 
 Gaia-X is a project initiated by Europe where representatives from business, politics, and science from Europe and around the globe are working together, hand in hand, to create a federated and secure data infrastructure. 
 
@@ -13,9 +17,6 @@ Gaia-X Self-Descriptions are:
 
 The format is following the W3C Verifiable Credentials Data Model.
 
-## Description
-
-### Verifiable credential core
 
 The core library handles base operations for generating and signing verifiable credentials: 
 - JSON-LD serialization made easier by providing annotations and Jackson serializers
