@@ -30,17 +30,20 @@ It is based on the core library, and is the main entry point supposing there is 
 
 ## Usage
 
-### Installation
+### Maven
 
 The library is built using Java 17, which is the latest Java LTS version available.
 
-Maven
+Build:
+```shell
+mvn install --file trust-framework/pom.xml
+```
 
+Dependency:
 ```xml
-<!-- Java 17 -->
 <dependency>
     <groupId>com.dawex.weaver</groupId>
-    <artifactId>verifiable-credential-model</artifactId>
+    <artifactId>weaver-verifiable-credentials-model</artifactId>
     <version>1-SNAPSHOT</version>
 </dependency>
 ```
@@ -63,16 +66,16 @@ formatProvider.setFormat(Format.ORGANISATION_VERIFIABLE_CREDENTIAL,"./organisati
 
 The following format names are available:
 
-| Format name | Applies to   | Description |
-| --- |--------------| --- |
-| DATA_PRODUCT_COPYRIGHT_OWNED_BY | Data product | copyrightOwnedBy |
-| DATA_PRODUCT_CREDENTIAL_SUBJECT | Data product | credential subject identifier |
-| DATA_PRODUCT_ISSUER | Data product | verifiable credential issuer |
-| DATA_PRODUCT_PROVIDED_BY | Data product | credential subject providedBy |
-| DATA_PRODUCT_VERIFIABLE_CREDENTIAL | Data product | verifiable credential id |
-| ORGANISATION_CREDENTIAL_SUBJECT | Organisation | credential subject identifier |
-| ORGANISATION_ISSUER | Organisation | verifiable credential issuer |
-| ORGANISATION_VERIFIABLE_CREDENTIAL | Organisation | verifiable credential id |
+| Format name | Applies to   | Field                                   | Description                   |
+| --- |--------------|-----------------------------------------|-------------------------------|
+| DATA_PRODUCT_COPYRIGHT_OWNED_BY | Data product | `AggregationOf.copyrightOwnedBy`          | copyright owner               |
+| DATA_PRODUCT_CREDENTIAL_SUBJECT | Data product | `DataProductCredentialSubject.id`         | credential subject id         |
+| DATA_PRODUCT_ISSUER | Data product | `DataProductVerifiableCredential.issuer`  | verifiable credential issuer  |
+| DATA_PRODUCT_PROVIDED_BY | Data product | `DataProductCredentialSubject.providedBy` | credential subject providedBy |
+| DATA_PRODUCT_VERIFIABLE_CREDENTIAL | Data product | `DataProductVerifiableCredential.id`      | verifiable credential id      |
+| ORGANISATION_CREDENTIAL_SUBJECT | Organisation | `OrganisationCredentialSubject.id`        | credential subject id         |
+| ORGANISATION_ISSUER | Organisation | `OrganisationVerifiableCredential.issuer` | verifiable credential issuer  |
+| ORGANISATION_VERIFIABLE_CREDENTIAL | Organisation | `OrganisationVerifiableCredential.id`     | verifiable credential id      |
 
 #### Configure the `ObjectMapper` for serializing organisation verifiable credentials
 
@@ -83,9 +86,9 @@ Here is an example of how to configure the `ObjectMapper` for generating both or
 ```java
 final var objectMapper = new ObjectMapper();
 // for serializing organisation verifiable credentials
-objectMapper.registerModule(organisationSerializationModule(getFormatProvider(), () -> "https://mycompany.com"));
+objectMapper.registerModule(JacksonModuleFactory.organisationSerializationModule(formatProvider, () -> "https://mycompany.com"));
 // for serializing data product verifiable credentials
-objectMapper.registerModule(dataProductSerializationModule(getFormatProvider(), () -> "https://mycompany.com"));
+objectMapper.registerModule(JacksonModuleFactory.dataProductSerializationModule(formatProvider, () -> "https://mycompany.com"));
 ```
 
 #### Configure the JSON Web Key (JWK) 
@@ -98,10 +101,10 @@ If necessary, the library also provide a way to generate :
 // Generate a key pair and a X.509 self-signed certificate (with common name "My Company", and a 12 months validity) 
 final JwkSetUtils.CreatedKeys createdKeys = JwkSetUtils.createKeys("My Company", 12);
 // Get the JWK
-final JWK jwk = CREATED_KEYS.jwkSet().getKeys().stream().findFirst().orElseThrow();
+final JWK jwk = createdKeys.jwkSet().getKeys().stream().findFirst().orElseThrow();
 // Get the X.509 certificate
-final String certificate = CREATED_KEYS.certificates().stream().findFirst().orElseThrow();
-final X509Certificate certificate = com.nimbusds.jose.util.X509CertUtils.parse(Constant.CERTIFICATE);
+final String certificate = createdKeys.certificates().stream().findFirst().orElseThrow();
+final X509Certificate x509Certificate = com.nimbusds.jose.util.X509CertUtils.parse(certificate);
 ```
 
 ### Generate a verifiable credential
@@ -128,7 +131,7 @@ final var proof = ProofGenerator.generateProof(
 		objectMapper.writeValueAsString(verifiableCredential),
 		"https://mycompany.com/jwks",
 		jwk);
-// Get a signed VC, by adding the proof to the verifiableCredential POJO 
+// Get a signed VC, by adding the proof to the verifiableCredential POJO
 final var signedVc = new SignedObject<>(verifiableCredential, proof);
 // Serialize the signed VC to get it as a JSON-LD String
 final var serializedVc = objectMapper.writeValueAsString(signedVc);
@@ -138,7 +141,7 @@ final var serializedVc = objectMapper.writeValueAsString(signedVc);
 
 You may contribute to this test suite by submitting pull requests here:
 
-https://github.com/dawex/Weaver
+https://github.com/dawex/weaver
 
 ## License
 
