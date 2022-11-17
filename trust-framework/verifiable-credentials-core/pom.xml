@@ -18,7 +18,7 @@
 
 	<properties>
 		<bouncycastle.version>1.72</bouncycastle.version>
-		<jackson.version>2.13.4</jackson.version>
+		<jackson.version>2.14.0</jackson.version>
 		<jakarta.json.version>2.0.1</jakarta.json.version>
 		<nimbus-jose-jwt.version>9.25.4</nimbus-jose-jwt.version>
 		<rdf-urdna.version>1.2</rdf-urdna.version>
