@@ -6,7 +6,7 @@
 
 	<groupId>com.dawex.weaver</groupId>
 	<artifactId>weaver-trustframework</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>weaver-trustframework</name>
