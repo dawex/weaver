@@ -4,24 +4,22 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.dawex.weaver</groupId>
+	<parent>
+		<groupId>com.dawex.weaver</groupId>
+		<artifactId>weaver-trustframework</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
 	<artifactId>weaver-verifiable-credentials-core</artifactId>
-	<version>1-SNAPSHOT</version>
+	<version>1.0.0</version>
+
+	<name>weaver-verifiable-credentials-core</name>
+	<description>Weaver Verifiable Credential core</description>
 
 	<properties>
-		<java.version>17</java.version>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-		<assert4j.version>3.23.1</assert4j.version>
 		<bouncycastle.version>1.72</bouncycastle.version>
 		<jackson.version>2.13.4</jackson.version>
 		<jakarta.json.version>2.0.1</jakarta.json.version>
-		<junit.version>5.9.0</junit.version>
-		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-		<mockito.version>3.12.4</mockito.version>
 		<nimbus-jose-jwt.version>9.25.4</nimbus-jose-jwt.version>
 		<rdf-urdna.version>1.2</rdf-urdna.version>
 		<titanium-json-ld.version>1.3.1</titanium-json-ld.version>
@@ -93,36 +91,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin.version}</version>
-			</plugin>
-		</plugins>
-	</build>
-
-	<name>weaver-verifiable-credentials-core</name>
-	<url>https://github.com/dawex/weaver</url>
-
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://github.com/dawex/weaver/blob/master/LICENSE</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<organization>
-		<name>Dawex</name>
-		<url>https://www.dawex.com</url>
-	</organization>
-
-	<issueManagement>
-		<system>github</system>
-		<url>https://github.com/dawex/weaver/issues</url>
-	</issueManagement>
-
 </project>

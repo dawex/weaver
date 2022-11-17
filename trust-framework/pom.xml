@@ -6,12 +6,179 @@
 
 	<groupId>com.dawex.weaver</groupId>
 	<artifactId>weaver-trustframework</artifactId>
-	<version>1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
+
+	<name>weaver-trustframework</name>
+	<description>Weaver Trust Framework</description>
+	<url>https://github.com/dawex/weaver</url>
+
+	<properties>
+		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<jreleaser-maven-plugin.version>1.3.1</jreleaser-maven-plugin.version>
+		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+
+		<assert4j.version>3.23.1</assert4j.version>
+		<junit.version>5.9.0</junit.version>
+		<mockito.version>3.12.4</mockito.version>
+	</properties>
 
 	<modules>
 		<module>verifiable-credentials-core</module>
 		<module>verifiable-credentials-model</module>
 	</modules>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://github.com/dawex/weaver/blob/main/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Dawex</name>
+		<url>https://www.dawex.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Dawex</name>
+			<email>developer@dawex.com</email>
+			<organization>Dawex</organization>
+			<organizationUrl>https://www.dawex.com</organizationUrl>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/dawex/weaver/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/dawex/weaver.git</connection>
+		<developerConnection>scm:git:ssh://github.com/dawex/weaver.git</developerConnection>
+		<url>https://github.com/dawex/weaver/tree/main</url>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>Github</name>
+			<url>https://maven.pkg.github.com/dawex/weaver</url>
+		</repository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-javadoc</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<failOnError>false</failOnError>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>${maven-source-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-source</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.3.0</version>
+						<executions>
+							<execution>
+								<id>javadoc-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<classifier>javadoc</classifier>
+								</configuration>
+							</execution>
+							<execution>
+								<id>sources-jar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<classifier>sources</classifier>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.jreleaser</groupId>
+						<artifactId>jreleaser-maven-plugin</artifactId>
+						<version>${jreleaser-maven-plugin.version}</version>
+						<configuration>
+							<gitRootSearch>true</gitRootSearch>
+							<jreleaser>
+								<signing>
+									<active>ALWAYS</active>
+									<armored>true</armored>
+								</signing>
+								<deploy>
+									<maven>
+										<nexus2>
+											<maven-central>
+												<active>ALWAYS</active>
+												<url>https://s01.oss.sonatype.org/service/local</url>
+												<applyMavenCentralRules>true</applyMavenCentralRules>
+												<closeRepository>false</closeRepository>
+												<releaseRepository>false</releaseRepository>
+												<stagingRepositories>
+													<stagingRepository>target/staging-deploy</stagingRepository>
+												</stagingRepositories>
+											</maven-central>
+										</nexus2>
+									</maven>
+								</deploy>
+							</jreleaser>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

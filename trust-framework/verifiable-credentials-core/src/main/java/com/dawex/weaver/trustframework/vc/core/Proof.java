@@ -5,7 +5,7 @@ import com.dawex.weaver.trustframework.vc.core.jsonld.annotation.JsonLdProperty;
 import java.time.ZonedDateTime;
 
 /**
- * @see <a href=="https://w3id.org/security#proof">Proof Schema</a>
+ * @see <a href="https://w3id.org/security#proof">Proof Schema</a>
  */
 public record Proof(@JsonLdProperty(value = "type", namespace = Namespace.SERVICE_DESCRIPTION) String type,
                     @JsonLdProperty(value = "created", namespace = Namespace.SERVICE_DESCRIPTION) ZonedDateTime created,
